@@ -1,9 +1,11 @@
 import React from 'react';
 
+import CurrentWeather from '../weather/CurrentWeather';
+
 const Dashboard = () => {
   return (
     <div>
-      <h1>Dashboard</h1>
+      <CurrentWeather />
     </div>
   );
 };
