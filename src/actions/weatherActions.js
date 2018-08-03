@@ -1,15 +1,17 @@
 import { GET_CURRENT_WEATHER } from './types';
 import axios from 'axios';
 
-export const getCurrentWeather = () => async dispatch => {
-  const res = await axios.get(
-    'https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/18.04593/lat/59.32905/data.json'
-  );
+export const getCurrentWeather = coordinates => async dispatch => {
+  const { lon, lat } = coordinates;
 
-  const currentWeather = res.data.timeSeries[0];
+  const res = await axios.get(
+    `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&APPID=${
+      process.env.REACT_APP_WEATHER_API_KEY
+    }`
+  );
 
   dispatch({
     type: GET_CURRENT_WEATHER,
-    payload: currentWeather
+    payload: res.data
   });
 };

@@ -14,7 +14,9 @@ class App extends Component {
       <Provider store={store}>
         <div className="App">
           <Navbar />
-          <Dashboard />
+          <div className="container">
+            <Dashboard />
+          </div>
         </div>
       </Provider>
     );
