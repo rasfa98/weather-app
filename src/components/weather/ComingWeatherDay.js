@@ -8,24 +8,29 @@ const ComingWeatherDay = props => {
 
   return (
     <div className="card">
-      <img
-        src={`/images/${weatherIcon(icon)}.svg`}
-        alt="Weather icon"
-        style={{
-          width: '140px',
-          height: '140px',
-          display: 'block',
-          margin: '0 auto'
-        }}
-      />
+      <div className="card-body">
+        <h2 className="text-center font-weight-bold">DAY</h2>
 
-      <h1 className="text-center">{temp.toFixed(0)}&deg;</h1>
+        <img
+          src={`/images/${weatherIcon(icon)}.svg`}
+          alt="Weather icon"
+          style={{
+            width: '140px',
+            display: 'block',
+            margin: '0 auto'
+          }}
+        />
 
-      <h2 className="text-center text-capitalize">{description}</h2>
+        <h2 className="text-center text-primary mt-4">
+          {temp.toFixed(0)}&deg;
+        </h2>
 
-      <p className="text-center text-secondary">
-        L {temp_min}&deg; H {temp_max}&deg;
-      </p>
+        <h3 className="text-center text-capitalize">{description}</h3>
+
+        <p className="text-center text-secondary">
+          L: {temp_min}&deg; H: {temp_max}&deg;
+        </p>
+      </div>
     </div>
   );
 };

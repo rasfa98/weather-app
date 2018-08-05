@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import uuid from 'uuid';
 
 import ComingWeatherDay from './ComingWeatherDay';
 
@@ -19,12 +20,18 @@ class ComingWeather extends Component {
 
     if (comingWeather) {
       return (
-        <div className="row">
-          {comingWeather.map(x => (
-            <div className="col">
-              <ComingWeatherDay key={x.dt} day={x} />
-            </div>
-          ))}
+        <div>
+          <h1>Coming Weather</h1>
+
+          <hr />
+
+          <div className="row mb-4">
+            {comingWeather.map(x => (
+              <div key={uuid()} className="col">
+                <ComingWeatherDay day={x} />
+              </div>
+            ))}
+          </div>
         </div>
       );
     } else {

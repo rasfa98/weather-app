@@ -21,38 +21,77 @@ class CurrentWeather extends Component {
 
     if (currentWeather) {
       return (
-        <div className="card mb-4">
-          <div className="card-header">
-            <h3 className="text-center text-capitalize">
-              {currentWeather.name}
-            </h3>
-          </div>
-          <div className="card-body pt-0">
-            <img
-              src={`/images/${weatherIcon(currentWeather.weather[0].icon)}.svg`}
-              alt="Weather icon"
-              style={{
-                width: '170px',
-                height: '170px',
-                display: 'block',
-                margin: '0 auto'
-              }}
-            />
+        <div>
+          <h1>Current Weather</h1>
 
-            <h1 className="text-center">
-              {currentWeather.main.temp.toFixed(0)}&deg;
-            </h1>
+          <hr />
 
-            <h2 className="text-center text-capitalize">
-              {currentWeather.weather[0].description}
-            </h2>
+          <div className="row mb-4">
+            <div className="col-md-4">
+              <div className="card border border-primary">
+                <div className="card-body">
+                  <h1 className="text-capitalize font-weight-bold">
+                    {currentWeather.name}
+                  </h1>
 
-            <p className="text-center">
-              Wind {currentWeather.wind.speed} m/s - Humidity -{' '}
-              {currentWeather.main.humidity} % Pressure -{' '}
-              {currentWeather.main.pressure} hPa - Cloudiness{' '}
-              {currentWeather.clouds.all} %
-            </p>
+                  <h2 className="text-capitalize text-secondary">
+                    {currentWeather.weather[0].description}
+                  </h2>
+
+                  <h1 className="text-primary">
+                    {currentWeather.main.temp.toFixed(0)}&deg;
+                  </h1>
+
+                  <img
+                    src={`/images/${weatherIcon(
+                      currentWeather.weather[0].icon
+                    )}.svg`}
+                    alt="Weather icon"
+                    style={{
+                      width: '150px',
+                      display: 'block'
+                    }}
+                    className="ml-auto"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="col-md-4">
+              <div className="card border border-primary">
+                <div className="card-body">
+                  <h2 className="text-center font-weight-bold">Wind</h2>
+                  <h3 className="text-center">
+                    {currentWeather.wind.speed} m/s
+                  </h3>
+                </div>
+              </div>
+
+              <div className="card border border-primary mt-4">
+                <div className="card-body">
+                  <h2 className="text-center font-weight-bold">Pressure</h2>
+                  <h3 className="text-center">
+                    {currentWeather.main.pressure} hPa
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-4">
+              <div className="card border border-primary">
+                <div className="card-body">
+                  <h2 className="text-center font-weight-bold">Humidity</h2>
+                  <h3 className="text-center">
+                    {currentWeather.main.humidity} %
+                  </h3>
+                </div>
+              </div>
+
+              <div className="card border border-primary mt-4">
+                <div className="card-body">
+                  <h2 className="text-center font-weight-bold">Cloudiness</h2>
+                  <h3 className="text-center">{currentWeather.clouds.all} %</h3>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       );
