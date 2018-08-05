@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import CurrentWeather from '../weather/CurrentWeather';
+import ComingWeather from '../weather/ComingWeather';
 
 import { getUserPosition } from '../../actions/userActions';
 
@@ -11,7 +12,12 @@ class Dashboard extends Component {
   }
 
   render() {
-    return <CurrentWeather />;
+    return (
+      <div>
+        <CurrentWeather />
+        <ComingWeather />
+      </div>
+    );
   }
 }
 
