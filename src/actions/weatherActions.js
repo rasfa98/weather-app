@@ -1419,6 +1419,8 @@ export const getComingWeather = coordinates => async dispatch => {
 
   dispatch({
     type: GET_COMING_WEATHER,
-    payload: res.list.filter(x => new Date(x.dt * 1000).getHours() === 14)
+    payload: res.list
+      .filter(x => new Date(x.dt * 1000).getHours() === 14)
+      .slice(1)
   });
 };
