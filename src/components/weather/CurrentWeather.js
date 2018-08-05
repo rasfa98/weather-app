@@ -21,7 +21,7 @@ class CurrentWeather extends Component {
 
     if (currentWeather) {
       return (
-        <div className="card">
+        <div className="card mb-4">
           <div className="card-header">
             <h3 className="text-center text-capitalize">
               {currentWeather.name}
