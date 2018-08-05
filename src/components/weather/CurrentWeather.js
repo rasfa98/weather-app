@@ -48,9 +48,9 @@ class CurrentWeather extends Component {
             </h2>
 
             <p className="text-center">
-              Wind {currentWeather.wind.speed} m/s Humidity{' '}
-              {currentWeather.main.humidity} % Pressure{' '}
-              {currentWeather.main.pressure} hPa Cloudiness{' '}
+              Wind {currentWeather.wind.speed} m/s - Humidity -{' '}
+              {currentWeather.main.humidity} % Pressure -{' '}
+              {currentWeather.main.pressure} hPa - Cloudiness{' '}
               {currentWeather.clouds.all} %
             </p>
           </div>
