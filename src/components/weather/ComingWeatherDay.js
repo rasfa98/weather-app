@@ -30,7 +30,7 @@ const ComingWeatherDay = props => {
           }}
         />
 
-        <h2 className="text-center text-white mt-4">
+        <h2 className="text-center text-white">
           <span className="small text-secondary">
             {temp_min.toFixed(0)}&deg;
           </span>{' '}

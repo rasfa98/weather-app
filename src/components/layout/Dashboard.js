@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import CurrentWeather from '../weather/CurrentWeather';
 import ComingWeather from '../weather/ComingWeather';
+import SearchBar from '../layout/SearchBar';
 
 import { getUserPosition } from '../../actions/userActions';
 
@@ -15,6 +16,7 @@ class Dashboard extends Component {
     return (
       <div>
         <div className="container">
+          <SearchBar />
           <CurrentWeather />
           <ComingWeather />
         </div>
