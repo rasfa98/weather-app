@@ -20,18 +20,12 @@ class ComingWeather extends Component {
 
     if (comingWeather) {
       return (
-        <div>
-          <h1>Coming Weather</h1>
-
-          <hr />
-
-          <div className="row mb-4">
-            {comingWeather.map(x => (
-              <div key={uuid()} className="col">
-                <ComingWeatherDay day={x} />
-              </div>
-            ))}
-          </div>
+        <div className="row mb-4">
+          {comingWeather.map(x => (
+            <div key={uuid()} className="col">
+              <ComingWeatherDay day={x} />
+            </div>
+          ))}
         </div>
       );
     } else {

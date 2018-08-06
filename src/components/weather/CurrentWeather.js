@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 import { getCurrentWeather } from '../../actions/weatherActions';
 
@@ -21,78 +22,46 @@ class CurrentWeather extends Component {
 
     if (currentWeather) {
       return (
-        <div>
-          <h1>Current Weather</h1>
+        <div className="mb-5 pt-4">
+          <h1 className="text-center text-white text-capitalize">
+            {currentWeather.name}
+          </h1>
 
-          <hr />
+          <h2 className="text-white text-center" style={{ fontSize: '60px' }}>
+            {currentWeather.main.temp.toFixed(0)}&deg;
+          </h2>
 
-          <div className="row mb-4">
-            <div className="col-md-4">
-              <div className="card border border-primary">
-                <div className="card-body">
-                  <h1 className="text-capitalize font-weight-bold">
-                    {currentWeather.name}
-                  </h1>
+          <img
+            src={`/images/${weatherIcon(currentWeather.weather[0].icon)}.svg`}
+            alt="Weather icon"
+            style={{
+              width: '70px',
+              display: 'block'
+            }}
+            className="m-auto"
+          />
 
-                  <h2 className="text-capitalize text-secondary">
-                    {currentWeather.weather[0].description}
-                  </h2>
+          <h1 className="text-white text-center text-capitalize mt-3">
+            {currentWeather.weather[0].description}
+          </h1>
 
-                  <h1 className="text-primary">
-                    {currentWeather.main.temp.toFixed(0)}&deg;
-                  </h1>
+          <h5 className="text-white text-center m-3">
+            {moment.unix(currentWeather.dt).format('dddd HH:mm')}
+          </h5>
 
-                  <img
-                    src={`/images/${weatherIcon(
-                      currentWeather.weather[0].icon
-                    )}.svg`}
-                    alt="Weather icon"
-                    style={{
-                      width: '150px',
-                      display: 'block'
-                    }}
-                    className="ml-auto"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="col-md-4">
-              <div className="card border border-primary">
-                <div className="card-body">
-                  <h2 className="text-center font-weight-bold">Wind</h2>
-                  <h3 className="text-center">
-                    {currentWeather.wind.speed} m/s
-                  </h3>
-                </div>
-              </div>
-
-              <div className="card border border-primary mt-4">
-                <div className="card-body">
-                  <h2 className="text-center font-weight-bold">Pressure</h2>
-                  <h3 className="text-center">
-                    {currentWeather.main.pressure} hPa
-                  </h3>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-4">
-              <div className="card border border-primary">
-                <div className="card-body">
-                  <h2 className="text-center font-weight-bold">Humidity</h2>
-                  <h3 className="text-center">
-                    {currentWeather.main.humidity} %
-                  </h3>
-                </div>
-              </div>
-
-              <div className="card border border-primary mt-4">
-                <div className="card-body">
-                  <h2 className="text-center font-weight-bold">Cloudiness</h2>
-                  <h3 className="text-center">{currentWeather.clouds.all} %</h3>
-                </div>
-              </div>
-            </div>
-          </div>
+          <p className="text-white text-center">
+            <span className="p-3">Wind {currentWeather.wind.speed} m/s</span>
+            <span className="p-3">
+              Pressure {currentWeather.main.pressure} hPa
+            </span>
+            <br />
+            <span className="p-3">
+              Humidity {currentWeather.main.humidity} %
+            </span>
+            <span className="p-3">
+              Cloudiness {currentWeather.clouds.all} %
+            </span>
+          </p>
         </div>
       );
     } else {

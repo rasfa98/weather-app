@@ -9,31 +9,40 @@ const ComingWeatherDay = props => {
   const { dt } = props.day;
 
   return (
-    <div className="card">
+    <div
+      className="card"
+      style={{
+        backgroundColor: 'rgba(255, 255, 255, 0.2)'
+      }}
+    >
       <div className="card-body">
-        <h2 className="text-center font-weight-bold">
+        <h3 className="text-center text-white">
           {moment.unix(dt).format('dddd')}
-        </h2>
+        </h3>
 
         <img
           src={`/images/${weatherIcon(icon)}.svg`}
           alt="Weather icon"
           style={{
-            width: '140px',
+            width: '100px',
             display: 'block',
             margin: '0 auto'
           }}
         />
 
-        <h2 className="text-center text-primary mt-4">
-          {temp.toFixed(0)}&deg;
+        <h2 className="text-center text-white mt-4">
+          <span className="small text-secondary">
+            {temp_min.toFixed(0)}&deg;
+          </span>{' '}
+          {temp.toFixed(0)}&deg;{' '}
+          <span className="small text-secondary">
+            {temp_max.toFixed(0)}&deg;
+          </span>
         </h2>
 
-        <h3 className="text-center text-capitalize">{description}</h3>
-
-        <p className="text-center text-secondary">
-          L: {temp_min}&deg; H: {temp_max}&deg;
-        </p>
+        <h5 className="text-center text-white text-capitalize">
+          {description}
+        </h5>
       </div>
     </div>
   );
