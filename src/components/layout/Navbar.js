@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Navbar extends Component {
   render() {
     return (
-      <nav className="navbar navbar-dark bg-primary">
+      <nav className="navbar navbar-dark mb-3">
         <a href="#!" className="navbar-brand">
           WeatherApp
         </a>
@@ -15,8 +15,6 @@ class Navbar extends Component {
               className="form-control"
               placeholder="Search..."
             />
-
-            <ul className="navbar-nav ml-auto" />
 
             <div className="input-group-append">
               <button type="submit" className="btn btn-dark">

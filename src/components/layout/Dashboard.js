@@ -13,13 +13,7 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <div
-        style={{
-          height: '100vh',
-          backgroundImage: `url(${'/images/test.jpg'})`,
-          backgroundSize: 'cover'
-        }}
-      >
+      <div>
         <div className="container">
           <CurrentWeather />
           <ComingWeather />

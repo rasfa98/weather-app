@@ -22,46 +22,53 @@ class CurrentWeather extends Component {
 
     if (currentWeather) {
       return (
-        <div className="mb-5 pt-4">
-          <h1 className="text-center text-white text-capitalize">
-            {currentWeather.name}
-          </h1>
+        <div
+          className="card mb-4"
+          style={{
+            backgroundColor: 'rgba(255, 255, 255, 0.2)'
+          }}
+        >
+          <div className="card-body">
+            <h1 className="text-center text-white text-capitalize">
+              {currentWeather.name}
+            </h1>
 
-          <h2 className="text-white text-center" style={{ fontSize: '60px' }}>
-            {currentWeather.main.temp.toFixed(0)}&deg;
-          </h2>
+            <h2 className="text-white text-center" style={{ fontSize: '60px' }}>
+              {currentWeather.main.temp.toFixed(0)}&deg;
+            </h2>
 
-          <img
-            src={`/images/${weatherIcon(currentWeather.weather[0].icon)}.svg`}
-            alt="Weather icon"
-            style={{
-              width: '70px',
-              display: 'block'
-            }}
-            className="m-auto"
-          />
+            <img
+              src={`/images/${weatherIcon(currentWeather.weather[0].icon)}.svg`}
+              alt="Weather icon"
+              style={{
+                width: '70px',
+                display: 'block'
+              }}
+              className="m-auto"
+            />
 
-          <h1 className="text-white text-center text-capitalize mt-3">
-            {currentWeather.weather[0].description}
-          </h1>
+            <h1 className="text-white text-center text-capitalize mt-3">
+              {currentWeather.weather[0].description}
+            </h1>
 
-          <h5 className="text-white text-center m-3">
-            {moment.unix(currentWeather.dt).format('dddd HH:mm')}
-          </h5>
+            <h5 className="text-white text-center m-3">
+              {moment.unix(currentWeather.dt).format('dddd HH:mm')}
+            </h5>
 
-          <p className="text-white text-center">
-            <span className="p-3">Wind {currentWeather.wind.speed} m/s</span>
-            <span className="p-3">
-              Pressure {currentWeather.main.pressure} hPa
-            </span>
-            <br />
-            <span className="p-3">
-              Humidity {currentWeather.main.humidity} %
-            </span>
-            <span className="p-3">
-              Cloudiness {currentWeather.clouds.all} %
-            </span>
-          </p>
+            <p className="text-white text-center">
+              <span className="p-3">Wind {currentWeather.wind.speed} m/s</span>
+              <span className="p-3">
+                Pressure {currentWeather.main.pressure} hPa
+              </span>
+              <br />
+              <span className="p-3">
+                Humidity {currentWeather.main.humidity} %
+              </span>
+              <span className="p-3">
+                Cloudiness {currentWeather.clouds.all} %
+              </span>
+            </p>
+          </div>
         </div>
       );
     } else {
