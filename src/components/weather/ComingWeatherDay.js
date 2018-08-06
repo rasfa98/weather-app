@@ -1,15 +1,19 @@
 import React from 'react';
+import moment from 'moment';
 
 import { weatherIcon } from '../../helpers/weather';
 
 const ComingWeatherDay = props => {
   const { temp, temp_min, temp_max } = props.day.main;
   const { description, icon } = props.day.weather[0];
+  const { dt } = props.day;
 
   return (
     <div className="card">
       <div className="card-body">
-        <h2 className="text-center font-weight-bold">DAY</h2>
+        <h2 className="text-center font-weight-bold">
+          {moment.unix(dt).format('dddd')}
+        </h2>
 
         <img
           src={`/images/${weatherIcon(icon)}.svg`}
