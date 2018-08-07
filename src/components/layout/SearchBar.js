@@ -1,22 +1,40 @@
 import React, { Component } from 'react';
 import jsonp from 'jsonp';
 import uuid from 'uuid';
+import { connect } from 'react-redux';
+
+import {
+  getCurrentWeather,
+  getComingWeather
+} from '../../actions/weatherActions';
 
 class SearchBar extends Component {
   state = {
     query: '',
-    results: ['Stockholm', 'Gothenburg', 'New Zeland']
+    results: []
   };
 
   onClick = e => {
-    this.setState({ query: e.target.getAttribute('data-city') });
+    this.setState({ query: e.target.getAttribute('data-city'), results: [] });
+
+    this.props.getCurrentWeather({
+      type: 'city',
+      data: e.target.getAttribute('data-city').split(',')[0]
+    });
+
+    this.props.getComingWeather({
+      type: 'city',
+      data: this.state.query.split(',')[0]
+    });
   };
 
   onChange = e => {
     const searchBar = e.target;
 
     jsonp(
-      `http://gd.geobytes.com/AutoCompleteCity?q=${e.target.value}`,
+      `http://gd.geobytes.com/AutoCompleteCity?template=<geobytes%20city>,%20<geobytes%20country>&q=${
+        e.target.value
+      }`,
       null,
       (err, data) => {
         if (err) {
@@ -24,6 +42,8 @@ class SearchBar extends Component {
         } else {
           if (data[0] !== '%s') {
             this.setState({ results: data });
+          } else {
+            this.setState({ results: [] });
           }
         }
       }
@@ -64,4 +84,7 @@ class SearchBar extends Component {
   }
 }
 
-export default SearchBar;
+export default connect(
+  null,
+  { getCurrentWeather, getComingWeather }
+)(SearchBar);
