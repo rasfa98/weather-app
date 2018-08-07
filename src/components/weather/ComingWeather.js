@@ -10,10 +10,20 @@ import { weatherIcon } from '../../helpers/weather';
 
 class ComingWeather extends Component {
   componentDidMount() {
-    this.props.getComingWeather(this.props.position);
+    this.props.getComingWeather({
+      type: 'coordinates',
+      data: this.props.position
+    });
   }
 
-  // TODO: Update data when user position is given.
+  componentDidUpdate(prevProps) {
+    if (this.props.position !== prevProps.position) {
+      this.props.getComingWeather({
+        type: 'coordinates',
+        data: this.props.position
+      });
+    }
+  }
 
   render() {
     const { comingWeather } = this.props;

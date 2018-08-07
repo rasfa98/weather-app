@@ -1,14 +1,22 @@
 import { GET_CURRENT_WEATHER, GET_COMING_WEATHER } from './types';
 import axios from 'axios';
 
-export const getCurrentWeather = coordinates => async dispatch => {
-  // const { lon, lat } = coordinates;
+export const getCurrentWeather = query => async dispatch => {
+  // if (query.type === 'coordinates') {
+  //   const { lon, lat } = coordinates.data;
 
-  // const res = await axios.get(
-  //   `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&APPID=${
-  //     process.env.REACT_APP_WEATHER_API_KEY
-  //   }`
-  // );
+  //   const res = await axios.get(
+  //     `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&APPID=${
+  //       process.env.REACT_APP_WEATHER_API_KEY
+  //     }`
+  //   );
+  // } else {
+  //   const res = await axios.get(
+  //     `http://api.openweathermap.org/data/2.5/weather?q=${
+  //       query.data
+  //     }&units=metric&APPID=${process.env.REACT_APP_WEATHER_API_KEY}`
+  //   );
+  // }
 
   const res = {
     data: {
@@ -60,7 +68,23 @@ export const getCurrentWeather = coordinates => async dispatch => {
   });
 };
 
-export const getComingWeather = coordinates => async dispatch => {
+export const getComingWeather = query => async dispatch => {
+  //  if (query.type === 'coordinates') {
+  //     const { lon, lat } = coordinates.data;
+
+  //     const res = await axios.get(
+  //       `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&APPID=${
+  //         process.env.REACT_APP_WEATHER_API_KEY
+  //       }`
+  //     );
+  //   } else {
+  //     const res = await axios.get(
+  //       `http://api.openweathermap.org/data/2.5/forecast?q=${
+  //         query.data
+  //       }&units=metric&APPID=${process.env.REACT_APP_WEATHER_API_KEY}`
+  //     );
+  //   }
+
   const res = {
     cod: '200',
     message: 0.1059,
