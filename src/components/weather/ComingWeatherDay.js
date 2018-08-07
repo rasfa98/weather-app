@@ -30,7 +30,7 @@ const ComingWeatherDay = props => {
           }}
         />
 
-        <h2 className="text-center text-white">
+        <h2 className="text-center text-white mt-3">
           <span className="small text-secondary">
             {temp_min.toFixed(0)}&deg;
           </span>{' '}
@@ -43,6 +43,10 @@ const ComingWeatherDay = props => {
         <h5 className="text-center text-white text-capitalize">
           {description}
         </h5>
+
+        <p className="text-center text-white">
+          {moment.unix(dt).format('HH:mm')}
+        </p>
       </div>
     </div>
   );
