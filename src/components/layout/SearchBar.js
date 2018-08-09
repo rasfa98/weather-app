@@ -14,18 +14,26 @@ class SearchBar extends Component {
     results: []
   };
 
-  onClick = e => {
-    this.setState({ query: e.target.getAttribute('data-city'), results: [] });
-
+  getWeatherData = query => {
     this.props.getCurrentWeather({
       type: 'city',
-      data: e.target.getAttribute('data-city').split(',')[0]
+      data: query
     });
 
     this.props.getComingWeather({
       type: 'city',
-      data: this.state.query.split(',')[0]
+      data: query
     });
+  };
+
+  onSubmit = e => {
+    e.preventDefault();
+    this.getWeatherData(this.state.query);
+  };
+
+  onClick = e => {
+    this.setState({ query: e.target.getAttribute('data-city'), results: [] });
+    this.getWeatherData(e.target.getAttribute('data-city').split(',')[0]);
   };
 
   onChange = e => {
@@ -55,17 +63,26 @@ class SearchBar extends Component {
   render() {
     return (
       <div className="mb-4">
-        <div className="input-group">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Enter city..."
-            onChange={this.onChange}
-            value={this.state.query}
-          />
-        </div>
+        <form onSubmit={this.onSubmit}>
+          <div className="input-group">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search..."
+              onChange={this.onChange}
+              value={this.state.query}
+            />
+            <div className="input-group-append">
+              <button type="submit" className="btn btn-dark">
+                <span>
+                  <i className="fas fa-search" />
+                </span>
+              </button>
+            </div>
+          </div>
+        </form>
 
-        <ul className="list-group mt-1">
+        <ul className="list-group mt-2">
           {this.state.results.map(x => (
             <li key={uuid()} className="list-group-item">
               <a
