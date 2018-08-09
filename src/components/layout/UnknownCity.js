@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default () => {
+const UnknownCity = () => {
   return (
     <div className="mb-4 card opacity">
       <div className="card-body">
@@ -11,3 +11,5 @@ export default () => {
     </div>
   );
 };
+
+export default UnknownCity;

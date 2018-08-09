@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
+import LoadingSpinner from '../layout/LoadingSpinner';
+
 import { getCurrentWeather } from '../../actions/weatherActions';
 
 import { weatherIcon } from '../../helpers/weather';
@@ -73,7 +75,7 @@ class CurrentWeather extends Component {
         </div>
       );
     } else {
-      return <h1>Loading...</h1>;
+      return <LoadingSpinner />;
     }
   }
 }

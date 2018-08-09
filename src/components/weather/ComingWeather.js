@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 import uuid from 'uuid';
 
 import ComingWeatherDay from './ComingWeatherDay';
+import LoadingSpinner from '../layout/LoadingSpinner';
 
 import { getComingWeather } from '../../actions/weatherActions';
-
-import { weatherIcon } from '../../helpers/weather';
 
 class ComingWeather extends Component {
   componentDidMount() {
@@ -41,7 +40,7 @@ class ComingWeather extends Component {
         </div>
       );
     } else {
-      return <h1>Loading...</h1>;
+      return <LoadingSpinner />;
     }
   }
 }

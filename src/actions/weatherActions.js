@@ -1,4 +1,3 @@
-import axios from 'axios';
 import moment from 'moment';
 
 import { GET_CURRENT_WEATHER, GET_COMING_WEATHER, SEARCH_ERROR } from './types';
