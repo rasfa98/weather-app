@@ -92,12 +92,7 @@ class SearchBar extends Component {
             </div>
 
             {this.state.errors.city && (
-              <div
-                className="invalid-feedback"
-                style={{ position: 'absolute', top: '-26px' }}
-              >
-                {this.state.errors.city}
-              </div>
+              <div className="invalid-feedback">{this.state.errors.city}</div>
             )}
           </div>
         </form>

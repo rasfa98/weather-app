@@ -1,23 +1,29 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class Navbar extends Component {
   render() {
     return (
       <nav className="navbar navbar-expand navbar-dark mb-3">
-        <a href="#!" className="navbar-brand">
+        <Link to="/" className="navbar-brand">
           WeatherApp
-        </a>
+        </Link>
 
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
             <a href="#!" className="nav-link">
-              <span className="fas fa-sync-alt" style={{ fontSize: '30px' }} />
+              <span className="fas fa-sync-alt" />
             </a>
           </li>
           <li className="nav-item">
-            <a href="#!" className="nav-link">
-              <span className="fas fa-cog" style={{ fontSize: '30px' }} />
-            </a>
+            <Link to="/" className="nav-link">
+              <span className="fas fa-home" />
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/settings" className="nav-link">
+              <span className="fas fa-cog" />
+            </Link>
           </li>
         </ul>
       </nav>

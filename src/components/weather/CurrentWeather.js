@@ -28,29 +28,22 @@ class CurrentWeather extends Component {
 
     if (currentWeather) {
       return (
-        <div
-          className="card mb-4"
-          style={{
-            backgroundColor: 'rgba(255, 255, 255, 0.2)'
-          }}
-        >
+        <div className="card mb-4 opacity">
           <div className="card-body">
             <h1 className="text-center text-white text-capitalize">
               {currentWeather.name}
             </h1>
 
             <h2 className="text-white text-center" style={{ fontSize: '60px' }}>
-              {currentWeather.main.temp.toFixed(0)}&deg;
+              {currentWeather.main.temp.toFixed(0)}
+              &deg;
             </h2>
 
             <img
               src={`/images/${weatherIcon(currentWeather.weather[0].icon)}.svg`}
               alt="Weather icon"
-              style={{
-                width: '70px',
-                display: 'block'
-              }}
               className="m-auto"
+              id="current-weather-icon"
             />
 
             <h1 className="text-white text-center text-capitalize mt-3">
