@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import jsonp from 'jsonp';
 import uuid from 'uuid';
 import { connect } from 'react-redux';
+import classnames from 'classnames';
 
 import {
   getCurrentWeather,
@@ -10,25 +11,32 @@ import {
 
 class SearchBar extends Component {
   state = {
-    query: '',
-    results: []
+    city: '',
+    results: [],
+    errors: {}
   };
 
-  getWeatherData = query => {
+  getWeatherData = city => {
     this.props.getCurrentWeather({
       type: 'city',
-      data: query
+      data: city
     });
 
     this.props.getComingWeather({
       type: 'city',
-      data: query
+      data: city
     });
   };
 
   onSubmit = e => {
     e.preventDefault();
-    this.getWeatherData(this.state.query);
+
+    // Check input
+    if (this.state.city.trim() === '') {
+      this.setState({ errors: { city: 'Please enter a city' } });
+    } else {
+      this.getWeatherData(this.state.city);
+    }
   };
 
   onClick = e => {
@@ -57,21 +65,24 @@ class SearchBar extends Component {
       }
     );
 
-    this.setState({ query: searchBar.value });
+    this.setState({ city: searchBar.value });
   };
 
   render() {
     return (
-      <div className="mb-4">
+      <div className="mb-3">
         <form onSubmit={this.onSubmit}>
           <div className="input-group">
             <input
               type="text"
-              className="form-control"
+              className={classnames('form-control', {
+                'is-invalid': this.state.errors.city
+              })}
               placeholder="Search..."
               onChange={this.onChange}
-              value={this.state.query}
+              value={this.state.city}
             />
+
             <div className="input-group-append">
               <button type="submit" className="btn btn-dark">
                 <span>
@@ -79,6 +90,15 @@ class SearchBar extends Component {
                 </span>
               </button>
             </div>
+
+            {this.state.errors.city && (
+              <div
+                className="invalid-feedback"
+                style={{ position: 'absolute', top: '-26px' }}
+              >
+                {this.state.errors.city}
+              </div>
+            )}
           </div>
         </form>
 
