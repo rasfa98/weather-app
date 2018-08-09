@@ -40,7 +40,7 @@ class SearchBar extends Component {
   };
 
   onClick = e => {
-    this.setState({ query: e.target.getAttribute('data-city'), results: [] });
+    this.setState({ city: e.target.getAttribute('data-city'), results: [] });
     this.getWeatherData(e.target.getAttribute('data-city').split(',')[0]);
   };
 
@@ -56,7 +56,7 @@ class SearchBar extends Component {
         if (err) {
           console.log(err.message);
         } else {
-          if (data[0] !== '%s') {
+          if (data[0] !== '%s' && data[0] !== '') {
             this.setState({ results: data });
           } else {
             this.setState({ results: [] });
