@@ -8,10 +8,12 @@ import { weatherIcon } from '../../helpers/weather';
 
 class CurrentWeather extends Component {
   componentDidMount() {
-    this.props.getCurrentWeather({
-      type: 'coordinates',
-      data: this.props.position
-    });
+    if (!this.props.currentWeather) {
+      this.props.getCurrentWeather({
+        type: 'coordinates',
+        data: this.props.position
+      });
+    }
   }
 
   componentDidUpdate(prevProps) {
