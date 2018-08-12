@@ -10,7 +10,9 @@ import { getUserPosition } from '../../actions/userActions';
 
 class Dashboard extends Component {
   componentDidMount() {
-    this.props.getUserPosition();
+    if (!this.props.hasFetchedPosition) {
+      this.props.getUserPosition();
+    }
   }
 
   render() {
@@ -31,6 +33,7 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = state => ({
+  hasFetchedPosition: state.user.hasFetchedPosition,
   position: state.user.position,
   searchError: state.errors.searchError
 });
