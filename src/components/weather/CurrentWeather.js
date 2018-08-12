@@ -11,19 +11,27 @@ import { weatherIcon } from '../../helpers/weather';
 class CurrentWeather extends Component {
   componentDidMount() {
     if (!this.props.currentWeather) {
-      this.props.getCurrentWeather({
-        type: 'coordinates',
-        data: this.props.position
-      });
+      this.props.getCurrentWeather(
+        {
+          type: 'coordinates',
+          data: this.props.position
+        },
+        this.props.settings.apiKey,
+        this.props.settings.temperatureUnit
+      );
     }
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.position !== prevProps.position) {
-      this.props.getCurrentWeather({
-        type: 'coordinates',
-        data: this.props.position
-      });
+      this.props.getCurrentWeather(
+        {
+          type: 'coordinates',
+          data: this.props.position
+        },
+        this.props.settings.apiKey,
+        this.props.settings.temperatureUnit
+      );
     }
   }
 
@@ -82,7 +90,8 @@ class CurrentWeather extends Component {
 
 const mapStateToProps = state => ({
   currentWeather: state.weather.currentWeather,
-  position: state.user.position
+  position: state.user.position,
+  settings: state.settings
 });
 
 export default connect(

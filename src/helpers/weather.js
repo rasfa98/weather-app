@@ -23,24 +23,3 @@ export const weatherIcon = id => {
     return 'fog';
   }
 };
-
-export const getWeatherData = async (query, url) => {
-  const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
-
-  let parameters;
-
-  try {
-    if (query.type === 'coordinates') {
-      const { lon, lat } = query.data;
-
-      parameters = `lat=${lat}&lon=${lon}&units=metric&APPID=${API_KEY}`;
-    } else {
-      parameters = `q=${query.data}&units=metric&APPID=${API_KEY}`;
-    }
-    const res = await axios.get(url + parameters);
-
-    return { type: 'success', data: res.data };
-  } catch (err) {
-    return { type: 'error', data: null };
-  }
-};

@@ -17,15 +17,23 @@ class SearchBar extends Component {
   };
 
   getWeatherData = city => {
-    this.props.getCurrentWeather({
-      type: 'city',
-      data: city
-    });
+    this.props.getCurrentWeather(
+      {
+        type: 'city',
+        data: city
+      },
+      this.props.settings.apiKey,
+      this.props.settings.temperatureUnit
+    );
 
-    this.props.getComingWeather({
-      type: 'city',
-      data: city
-    });
+    this.props.getComingWeather(
+      {
+        type: 'city',
+        data: city
+      },
+      this.props.settings.apiKey,
+      this.props.settings.temperatureUnit
+    );
   };
 
   onSubmit = e => {
@@ -116,7 +124,11 @@ class SearchBar extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  settings: state.settings
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   { getCurrentWeather, getComingWeather }
 )(SearchBar);

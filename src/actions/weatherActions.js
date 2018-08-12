@@ -1,13 +1,18 @@
 import moment from 'moment';
+import axios from 'axios';
 
 import { GET_CURRENT_WEATHER, GET_COMING_WEATHER, SEARCH_ERROR } from './types';
 
-import { getWeatherData } from '../helpers/weather';
-
-export const getCurrentWeather = query => async dispatch => {
-  const res = await getWeatherData(
+export const getCurrentWeather = (
+  query,
+  apiKey,
+  temperatureUnit
+) => async dispatch => {
+  const res = await _getWeatherData(
     query,
-    'http://api.openweathermap.org/data/2.5/weather?'
+    'http://api.openweathermap.org/data/2.5/weather?',
+    apiKey,
+    temperatureUnit
   );
 
   if (res.type === 'error') {
@@ -22,10 +27,16 @@ export const getCurrentWeather = query => async dispatch => {
   }
 };
 
-export const getComingWeather = query => async dispatch => {
-  const res = await getWeatherData(
+export const getComingWeather = (
+  query,
+  apiKey,
+  temperatureUnit
+) => async dispatch => {
+  const res = await _getWeatherData(
     query,
-    'http://api.openweathermap.org/data/2.5/forecast?'
+    'http://api.openweathermap.org/data/2.5/forecast?',
+    apiKey,
+    temperatureUnit
   );
 
   if (res.type === 'error') {
@@ -45,5 +56,25 @@ export const getComingWeather = query => async dispatch => {
         )
         .slice(1)
     });
+  }
+};
+
+const _getWeatherData = async (query, url, apiKey, temperatureUnit) => {
+  let parameters;
+  let unit = temperatureUnit === 'celsius' ? 'metric' : 'imperial';
+
+  try {
+    if (query.type === 'coordinates') {
+      const { lon, lat } = query.data;
+
+      parameters = `lat=${lat}&lon=${lon}&units=${unit}&APPID=${apiKey}`;
+    } else {
+      parameters = `q=${query.data}&units=${unit}&APPID=${apiKey}`;
+    }
+    const res = await axios.get(url + parameters);
+
+    return { type: 'success', data: res.data };
+  } catch (err) {
+    return { type: 'error', data: null };
   }
 };

@@ -1,52 +1,49 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import {
+  changeApiKey,
+  changeTemperatureUnit
+} from '../../actions/settingsActions';
 
 class Settings extends Component {
+  changeApiKeyChange = e => {
+    this.props.changeApiKey(e.target.value);
+  };
+
+  changeTemperatureUnitChange = e => {
+    this.props.changeTemperatureUnit(e.target.value);
+  };
+
   render() {
     return (
-      <div className="card">
+      <div className="card opacity text-white">
         <div className="card-header">Settings</div>
         <div className="card-body">
           <form>
             <div className="form-group">
-              <label htmlFor="apiKey">API Key</label>
+              <label htmlFor="apiKey">API Key (Open Weather Map)</label>
               <input
                 type="text"
                 className="form-control"
                 name="apiKey"
                 placeholder="Enter API Key..."
+                onChange={this.changeApiKeyChange}
+                defaultValue={this.props.apiKey}
               />
-              <small className="form-text text-muted">
-                API key for Open Weather Map weather API.
-              </small>
             </div>
 
             <div className="form-group">
-              <label htmlFor="options">Temperature Unit</label>
-
-              <br />
-
-              <div className="btn-group btn-group-toggle" data-toggle="buttons">
-                <label className="btn btn-secondary active">
-                  <input
-                    type="radio"
-                    name="options"
-                    id="celsius"
-                    autoComplete="off"
-                    checked
-                  />{' '}
-                  Celsius
-                </label>
-
-                <label className="btn btn-secondary active">
-                  <input
-                    type="radio"
-                    name="options"
-                    id="fahrenheit"
-                    autoComplete="off"
-                  />{' '}
-                  Fahrenheit
-                </label>
-              </div>
+              <label htmlFor="temperatureUnit">Temperature Unit</label>
+              <select
+                name="temperatureUnit"
+                className="form-control"
+                defaultValue={this.props.temperatureUnit}
+                onChange={this.changeTemperatureUnitChange}
+              >
+                <option value="celsius">Celsius</option>
+                <option value="fahrenheit">Fahrenheit</option>
+              </select>
             </div>
           </form>
         </div>
@@ -55,4 +52,12 @@ class Settings extends Component {
   }
 }
 
-export default Settings;
+const mapStateToProps = state => ({
+  apiKey: state.settings.apiKey,
+  temperatureUnit: state.settings.temperatureUnit
+});
+
+export default connect(
+  mapStateToProps,
+  { changeApiKey, changeTemperatureUnit }
+)(Settings);
