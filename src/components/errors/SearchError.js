@@ -1,6 +1,6 @@
 import React from 'react';
 
-const UnknownCity = () => {
+const SearchError = () => {
   return (
     <div className="mb-4 card opacity">
       <div className="card-body">
@@ -12,4 +12,4 @@ const UnknownCity = () => {
   );
 };
 
-export default UnknownCity;
+export default SearchError;

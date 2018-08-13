@@ -1,7 +1,8 @@
 import { CHANGE_API_KEY, CHANGE_TEMPERATURE_UNIT } from '../actions/types';
 
 const initialState = {
-  temperatureUnit: 'celsius'
+  temperatureUnit: 'celsius',
+  apiKey: ''
 };
 
 export default function(state = initialState, action) {

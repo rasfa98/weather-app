@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import CurrentWeather from '../weather/CurrentWeather';
 import ComingWeather from '../weather/ComingWeather';
 import SearchBar from '../layout/SearchBar';
-import UnknownCity from './UnknownCity';
+import SearchError from '../errors/SearchError';
+import ApiKeyError from '../errors/ApiKeyError';
 
 import { getUserPosition } from '../../actions/userActions';
 
@@ -19,14 +20,14 @@ class Dashboard extends Component {
     return (
       <div>
         <SearchBar />
-        {!this.props.searchError ? (
+        {this.props.errors.searchError ? <SearchError /> : null}
+        {this.props.errors.apiKeyError ? <ApiKeyError /> : null}
+        {!this.props.errors.apiKeyError && !this.props.errors.searchError ? (
           <div>
             <CurrentWeather />
             <ComingWeather />
           </div>
-        ) : (
-          <UnknownCity />
-        )}
+        ) : null}
       </div>
     );
   }
@@ -35,7 +36,7 @@ class Dashboard extends Component {
 const mapStateToProps = state => ({
   hasFetchedPosition: state.user.hasFetchedPosition,
   position: state.user.position,
-  searchError: state.errors.searchError
+  errors: state.errors
 });
 
 export default connect(

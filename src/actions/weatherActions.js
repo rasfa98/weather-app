@@ -1,7 +1,12 @@
 import moment from 'moment';
 import axios from 'axios';
 
-import { GET_CURRENT_WEATHER, GET_COMING_WEATHER, SEARCH_ERROR } from './types';
+import {
+  GET_CURRENT_WEATHER,
+  GET_COMING_WEATHER,
+  SEARCH_ERROR,
+  API_KEY_ERROR
+} from './types';
 
 export const getCurrentWeather = (
   query,
@@ -15,9 +20,13 @@ export const getCurrentWeather = (
     temperatureUnit
   );
 
-  if (res.type === 'error') {
+  if (res.type === 'searchError') {
     dispatch({
       type: SEARCH_ERROR
+    });
+  } else if (res.type === 'apiKeyError') {
+    dispatch({
+      type: API_KEY_ERROR
     });
   } else if (res.type === 'success') {
     dispatch({
@@ -39,9 +48,13 @@ export const getComingWeather = (
     temperatureUnit
   );
 
-  if (res.type === 'error') {
+  if (res.type === 'searchError') {
     dispatch({
       type: SEARCH_ERROR
+    });
+  } else if (res.type === 'apiKeyError') {
+    dispatch({
+      type: API_KEY_ERROR
     });
   } else if (res.type === 'success') {
     dispatch({
@@ -75,6 +88,10 @@ const _getWeatherData = async (query, url, apiKey, temperatureUnit) => {
 
     return { type: 'success', data: res.data };
   } catch (err) {
-    return { type: 'error', data: null };
+    if (err.response.status === 401) {
+      return { type: 'apiKeyError', data: null };
+    } else if (err.response.status === 404) {
+      return { type: 'searchError', data: null };
+    }
   }
 };

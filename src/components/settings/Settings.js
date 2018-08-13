@@ -16,6 +16,8 @@ class Settings extends Component {
   };
 
   render() {
+    const { apiKey, temperatureUnit } = this.props.settings;
+
     return (
       <div className="card opacity text-white">
         <div className="card-header">Settings</div>
@@ -29,7 +31,7 @@ class Settings extends Component {
                 name="apiKey"
                 placeholder="Enter API Key..."
                 onChange={this.changeApiKeyChange}
-                defaultValue={this.props.apiKey}
+                value={apiKey}
               />
             </div>
 
@@ -38,7 +40,7 @@ class Settings extends Component {
               <select
                 name="temperatureUnit"
                 className="form-control"
-                defaultValue={this.props.temperatureUnit}
+                value={temperatureUnit}
                 onChange={this.changeTemperatureUnitChange}
               >
                 <option value="celsius">Celsius</option>
@@ -53,8 +55,7 @@ class Settings extends Component {
 }
 
 const mapStateToProps = state => ({
-  apiKey: state.settings.apiKey,
-  temperatureUnit: state.settings.temperatureUnit
+  settings: state.settings
 });
 
 export default connect(
