@@ -8,12 +8,19 @@ import SearchError from '../errors/SearchError';
 import ApiKeyError from '../errors/ApiKeyError';
 
 import { getUserPosition } from '../../actions/userActions';
+import {
+  changeApiKeyError,
+  changeSearchError
+} from '../../actions/errorActions';
 
 class Dashboard extends Component {
   componentDidMount() {
     if (!this.props.hasFetchedPosition) {
       this.props.getUserPosition();
     }
+
+    this.props.changeApiKeyError(false);
+    this.props.changeSearchError(false);
   }
 
   render() {
@@ -41,5 +48,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getUserPosition }
+  { getUserPosition, changeApiKeyError, changeSearchError }
 )(Dashboard);

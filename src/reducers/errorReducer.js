@@ -7,12 +7,12 @@ export default function(state = initialState, action) {
     case SEARCH_ERROR:
       return {
         ...state,
-        searchError: true
+        searchError: action.payload
       };
     case API_KEY_ERROR:
       return {
         ...state,
-        apiKeyError: true
+        apiKeyError: action.payload
       };
     default:
       return state;

@@ -22,11 +22,13 @@ export const getCurrentWeather = (
 
   if (res.type === 'searchError') {
     dispatch({
-      type: SEARCH_ERROR
+      type: SEARCH_ERROR,
+      payload: true
     });
   } else if (res.type === 'apiKeyError') {
     dispatch({
-      type: API_KEY_ERROR
+      type: API_KEY_ERROR,
+      payload: true
     });
   } else if (res.type === 'success') {
     dispatch({
@@ -50,11 +52,13 @@ export const getComingWeather = (
 
   if (res.type === 'searchError') {
     dispatch({
-      type: SEARCH_ERROR
+      type: SEARCH_ERROR,
+      payload: true
     });
   } else if (res.type === 'apiKeyError') {
     dispatch({
-      type: API_KEY_ERROR
+      type: API_KEY_ERROR,
+      payload: true
     });
   } else if (res.type === 'success') {
     dispatch({
