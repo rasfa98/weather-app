@@ -1,4 +1,4 @@
-import { SEARCH_ERROR, API_KEY_ERROR } from '../actions/types';
+import { SEARCH_ERROR, API_KEY_ERROR, NETWORK_ERROR } from '../actions/types';
 
 export const changeApiKeyError = isError => dispatch => {
   dispatch({
@@ -10,6 +10,13 @@ export const changeApiKeyError = isError => dispatch => {
 export const changeSearchError = isError => dispatch => {
   dispatch({
     type: SEARCH_ERROR,
+    payload: isError
+  });
+};
+
+export const changeNetworkError = isError => dispatch => {
+  dispatch({
+    type: NETWORK_ERROR,
     payload: isError
   });
 };

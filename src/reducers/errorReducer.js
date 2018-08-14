@@ -1,6 +1,10 @@
-import { SEARCH_ERROR, API_KEY_ERROR } from '../actions/types';
+import { SEARCH_ERROR, API_KEY_ERROR, NETWORK_ERROR } from '../actions/types';
 
-const initialState = { searchError: false, apiKeyError: false };
+const initialState = {
+  searchError: false,
+  apiKeyError: false,
+  networkError: false
+};
 
 export default function(state = initialState, action) {
   switch (action.type) {
@@ -13,6 +17,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         apiKeyError: action.payload
+      };
+    case NETWORK_ERROR:
+      return {
+        ...state,
+        networkError: action.payload
       };
     default:
       return state;

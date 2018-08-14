@@ -11,6 +11,6 @@ A simple weather app built with react and redux, using the Open Weather Map API.
 - Settings are stored in local storage
 - Responsive
 
-## Prerequisite
+## Prerequisites
 
 If you want to use the application you need to get your own API key from [Open Weather Map](https://openweathermap.org/).

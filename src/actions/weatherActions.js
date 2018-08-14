@@ -5,7 +5,8 @@ import {
   GET_CURRENT_WEATHER,
   GET_COMING_WEATHER,
   SEARCH_ERROR,
-  API_KEY_ERROR
+  API_KEY_ERROR,
+  NETWORK_ERROR
 } from './types';
 
 export const getCurrentWeather = (
@@ -28,6 +29,11 @@ export const getCurrentWeather = (
   } else if (res.type === 'apiKeyError') {
     dispatch({
       type: API_KEY_ERROR,
+      payload: true
+    });
+  } else if (res.type === 'networkError') {
+    dispatch({
+      type: NETWORK_ERROR,
       payload: true
     });
   } else if (res.type === 'success') {
@@ -58,6 +64,11 @@ export const getComingWeather = (
   } else if (res.type === 'apiKeyError') {
     dispatch({
       type: API_KEY_ERROR,
+      payload: true
+    });
+  } else if (res.type === 'networkError') {
+    dispatch({
+      type: NETWORK_ERROR,
       payload: true
     });
   } else if (res.type === 'success') {
@@ -92,10 +103,14 @@ const _getWeatherData = async (query, url, apiKey, temperatureUnit) => {
 
     return { type: 'success', data: res.data };
   } catch (err) {
-    if (err.response.status === 401) {
-      return { type: 'apiKeyError', data: null };
-    } else if (err.response.status === 404) {
-      return { type: 'searchError', data: null };
+    if (err.response) {
+      if (err.response.status === 401) {
+        return { type: 'apiKeyError', data: null };
+      } else if (err.response.status === 404) {
+        return { type: 'searchError', data: null };
+      }
+    } else {
+      return { type: 'networkError', data: null };
     }
   }
 };

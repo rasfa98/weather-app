@@ -9,7 +9,10 @@ import {
   getComingWeather
 } from '../../actions/weatherActions';
 
-import { changeSearchError } from '../../actions/errorActions';
+import {
+  changeSearchError,
+  changeNetworkError
+} from '../../actions/errorActions';
 
 class SearchBar extends Component {
   state = {
@@ -20,6 +23,7 @@ class SearchBar extends Component {
 
   getWeatherData = city => {
     this.props.changeSearchError(false);
+    this.props.changeNetworkError(false);
 
     this.props.getCurrentWeather(
       {
@@ -134,5 +138,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getCurrentWeather, getComingWeather, changeSearchError }
+  { getCurrentWeather, getComingWeather, changeSearchError, changeNetworkError }
 )(SearchBar);

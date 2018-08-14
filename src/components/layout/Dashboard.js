@@ -6,21 +6,24 @@ import ComingWeather from '../weather/ComingWeather';
 import SearchBar from '../layout/SearchBar';
 import SearchError from '../errors/SearchError';
 import ApiKeyError from '../errors/ApiKeyError';
+import NetworkError from '../errors/NetworkError';
 
 import { getUserPosition } from '../../actions/userActions';
 import {
   changeApiKeyError,
-  changeSearchError
+  changeSearchError,
+  changeNetworkError
 } from '../../actions/errorActions';
 
 class Dashboard extends Component {
   componentDidMount() {
+    this.props.changeApiKeyError(false);
+    this.props.changeSearchError(false);
+    this.props.changeNetworkError(false);
+
     if (!this.props.hasFetchedPosition) {
       this.props.getUserPosition();
     }
-
-    this.props.changeApiKeyError(false);
-    this.props.changeSearchError(false);
   }
 
   render() {
@@ -29,7 +32,10 @@ class Dashboard extends Component {
         <SearchBar />
         {this.props.errors.searchError ? <SearchError /> : null}
         {this.props.errors.apiKeyError ? <ApiKeyError /> : null}
-        {!this.props.errors.apiKeyError && !this.props.errors.searchError ? (
+        {this.props.errors.networkError ? <NetworkError /> : null}
+        {!this.props.errors.apiKeyError &&
+        !this.props.errors.searchError &&
+        !this.props.errors.networkError ? (
           <div>
             <CurrentWeather />
             <ComingWeather />
@@ -48,5 +54,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getUserPosition, changeApiKeyError, changeSearchError }
+  { getUserPosition, changeApiKeyError, changeSearchError, changeNetworkError }
 )(Dashboard);
