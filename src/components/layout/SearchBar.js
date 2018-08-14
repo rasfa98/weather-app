@@ -90,7 +90,7 @@ class SearchBar extends Component {
               className={classnames('form-control', {
                 'is-invalid': this.state.errors.city
               })}
-              placeholder="Search..."
+              placeholder="Search for a city..."
               onChange={this.onChange}
               value={this.state.city}
             />
