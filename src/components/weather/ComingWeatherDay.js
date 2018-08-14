@@ -4,12 +4,12 @@ import moment from 'moment';
 import { weatherIcon } from '../../helpers/weather';
 
 const ComingWeatherDay = props => {
-  const { temp, temp_min, temp_max } = props.day.main;
+  const { temp } = props.day.main;
   const { description, icon } = props.day.weather[0];
   const { dt } = props.day;
 
   return (
-    <div className="card opacity">
+    <div className="card opacity h-100">
       <div className="card-body text-white">
         <h3 className="text-center">{moment.unix(dt).format('dddd')}</h3>
 
@@ -20,16 +20,8 @@ const ComingWeatherDay = props => {
         />
 
         <h2 className="text-center mt-3">
-          <span className="small text-secondary">
-            {temp_min.toFixed(0)}
-            &deg;
-          </span>{' '}
           {temp.toFixed(0)}
           &deg;{' '}
-          <span className="small text-secondary">
-            {temp_max.toFixed(0)}
-            &deg;
-          </span>
         </h2>
 
         <h5 className="text-center text-capitalize">{description}</h5>
