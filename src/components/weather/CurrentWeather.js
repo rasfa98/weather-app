@@ -19,6 +19,15 @@ class CurrentWeather extends Component {
         this.props.settings.apiKey,
         this.props.settings.temperatureUnit
       );
+    } else {
+      this.props.getCurrentWeather(
+        {
+          type: 'city',
+          data: this.props.currentWeather.name
+        },
+        this.props.settings.apiKey,
+        this.props.settings.temperatureUnit
+      );
     }
   }
 

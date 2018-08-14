@@ -18,6 +18,15 @@ class ComingWeather extends Component {
         this.props.settings.apiKey,
         this.props.settings.temperatureUnit
       );
+    } else {
+      this.props.getComingWeather(
+        {
+          type: 'city',
+          data: this.props.currentWeather.name
+        },
+        this.props.settings.apiKey,
+        this.props.settings.temperatureUnit
+      );
     }
   }
 
@@ -55,6 +64,7 @@ class ComingWeather extends Component {
 
 const mapStateToProps = state => ({
   comingWeather: state.weather.comingWeather,
+  currentWeather: state.weather.currentWeather,
   position: state.user.position,
   settings: state.settings
 });
