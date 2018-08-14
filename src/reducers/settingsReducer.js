@@ -1,9 +1,15 @@
 import { CHANGE_API_KEY, CHANGE_TEMPERATURE_UNIT } from '../actions/types';
 
-const initialState = {
-  temperatureUnit: 'celsius',
-  apiKey: ''
-};
+if (localStorage.getItem('settings') === null) {
+  const defaultSettings = {
+    temperatureUnit: 'celsius',
+    apiKey: ''
+  };
+
+  localStorage.setItem('settings', JSON.stringify(defaultSettings));
+}
+
+const initialState = JSON.parse(localStorage.getItem('settings'));
 
 export default function(state = initialState, action) {
   switch (action.type) {

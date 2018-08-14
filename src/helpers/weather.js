@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 export const weatherIcon = id => {
   if (id === '01d') {
     return 'clear-sky-day';
