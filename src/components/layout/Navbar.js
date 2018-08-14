@@ -11,11 +11,6 @@ class Navbar extends Component {
 
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
-            <a href="#!" className="nav-link">
-              <span className="fas fa-sync-alt" />
-            </a>
-          </li>
-          <li className="nav-item">
             <Link to="/" className="nav-link">
               <span className="fas fa-home" />
             </Link>
