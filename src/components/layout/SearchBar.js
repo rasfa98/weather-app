@@ -16,7 +16,7 @@ import {
 
 class SearchBar extends Component {
   state = {
-    city: '',
+    searchInput: '',
     results: [],
     error: ''
   };
@@ -24,48 +24,46 @@ class SearchBar extends Component {
   getWeatherData = city => {
     const { apiKey, temperatureUnit } = this.props.settings;
 
+    const params = [
+      {
+        type: 'city',
+        data: city
+      },
+      apiKey,
+      temperatureUnit
+    ];
+
     this.props.changeSearchError(false);
     this.props.changeNetworkError(false);
 
     this.setState({ error: '' });
 
-    this.props.getCurrentWeather(
-      {
-        type: 'city',
-        data: city
-      },
-      apiKey,
-      temperatureUnit
-    );
-
-    this.props.getComingWeather(
-      {
-        type: 'city',
-        data: city
-      },
-      apiKey,
-      temperatureUnit
-    );
+    this.props.getCurrentWeather(...params);
+    this.props.getComingWeather(...params);
   };
 
   onSubmit = e => {
-    const { city } = this.state;
+    const { searchInput } = this.state;
 
     e.preventDefault();
 
     // Check input
-    if (city.trim() === '') {
+    if (searchInput.trim() === '') {
       this.setState({ error: 'Please enter a city' });
     } else {
-      this.getWeatherData(city);
+      this.getWeatherData(searchInput);
     }
 
-    this.setState({ city: city.trim(), results: [] });
+    this.setState({ searchInput: searchInput.trim(), results: [] });
   };
 
   onClick = e => {
-    this.setState({ city: e.target.getAttribute('data-city'), results: [] });
-    this.getWeatherData(e.target.getAttribute('data-city').split(',')[0]);
+    this.setState({
+      searchInput: e.target.getAttribute('data-city'),
+      results: []
+    });
+
+    this.getWeatherData(e.target.getAttribute('data-city'));
   };
 
   onChange = e => {
@@ -87,11 +85,11 @@ class SearchBar extends Component {
       }
     );
 
-    this.setState({ city: searchBar.value });
+    this.setState({ searchInput: searchBar.value });
   };
 
   render() {
-    const { city, results, error } = this.state;
+    const { searchInput, results, error } = this.state;
 
     return (
       <div className="mb-3">
@@ -104,7 +102,7 @@ class SearchBar extends Component {
               })}
               placeholder="Search for a city..."
               onChange={this.onChange}
-              value={city}
+              value={searchInput}
             />
 
             <div className="input-group-append">

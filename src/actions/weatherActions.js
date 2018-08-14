@@ -14,32 +14,22 @@ export const getCurrentWeather = (
   apiKey,
   temperatureUnit
 ) => async dispatch => {
-  const res = await _getWeatherData(
+  const res = await getWeatherData(
     query,
     'http://api.openweathermap.org/data/2.5/weather?',
     apiKey,
     temperatureUnit
   );
 
-  if (res.type === 'searchError') {
-    dispatch({
-      type: SEARCH_ERROR,
-      payload: true
-    });
-  } else if (res.type === 'apiKeyError') {
-    dispatch({
-      type: API_KEY_ERROR,
-      payload: true
-    });
-  } else if (res.type === 'networkError') {
-    dispatch({
-      type: NETWORK_ERROR,
-      payload: true
-    });
-  } else if (res.type === 'success') {
+  if (res.type === 'success') {
     dispatch({
       type: GET_CURRENT_WEATHER,
       payload: res.data
+    });
+  } else {
+    dispatch({
+      type: res,
+      payload: true
     });
   }
 };
@@ -49,29 +39,14 @@ export const getComingWeather = (
   apiKey,
   temperatureUnit
 ) => async dispatch => {
-  const res = await _getWeatherData(
+  const res = await getWeatherData(
     query,
     'http://api.openweathermap.org/data/2.5/forecast?',
     apiKey,
     temperatureUnit
   );
 
-  if (res.type === 'searchError') {
-    dispatch({
-      type: SEARCH_ERROR,
-      payload: true
-    });
-  } else if (res.type === 'apiKeyError') {
-    dispatch({
-      type: API_KEY_ERROR,
-      payload: true
-    });
-  } else if (res.type === 'networkError') {
-    dispatch({
-      type: NETWORK_ERROR,
-      payload: true
-    });
-  } else if (res.type === 'success') {
+  if (res.type === 'success') {
     dispatch({
       type: GET_COMING_WEATHER,
       payload: res.data.list
@@ -84,10 +59,15 @@ export const getComingWeather = (
         )
         .slice(1)
     });
+  } else {
+    dispatch({
+      type: res,
+      payload: true
+    });
   }
 };
 
-const _getWeatherData = async (query, url, apiKey, temperatureUnit) => {
+const getWeatherData = async (query, url, apiKey, temperatureUnit) => {
   let parameters;
   let unit = temperatureUnit === 'celsius' ? 'metric' : 'imperial';
 
@@ -99,18 +79,23 @@ const _getWeatherData = async (query, url, apiKey, temperatureUnit) => {
     } else {
       parameters = `q=${query.data}&units=${unit}&APPID=${apiKey}`;
     }
+
     const res = await axios.get(url + parameters);
 
     return { type: 'success', data: res.data };
   } catch (err) {
-    if (err.response) {
-      if (err.response.status === 401) {
-        return { type: 'apiKeyError', data: null };
-      } else if (err.response.status === 404) {
-        return { type: 'searchError', data: null };
-      }
-    } else {
-      return { type: 'networkError', data: null };
+    return handleError(err);
+  }
+};
+
+const handleError = err => {
+  if (err.response) {
+    if (err.response.status === 401) {
+      return API_KEY_ERROR;
+    } else if (err.response.status === 404) {
+      return SEARCH_ERROR;
     }
+  } else {
+    return NETWORK_ERROR;
   }
 };
