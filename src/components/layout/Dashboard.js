@@ -9,6 +9,7 @@ import ApiKeyError from '../errors/ApiKeyError';
 import NetworkError from '../errors/NetworkError';
 
 import { getUserPosition } from '../../actions/userActions';
+
 import {
   changeApiKeyError,
   changeSearchError,
@@ -21,21 +22,23 @@ class Dashboard extends Component {
     this.props.changeSearchError(false);
     this.props.changeNetworkError(false);
 
+    // Only fetch a users position once.
     if (!this.props.hasFetchedPosition) {
       this.props.getUserPosition();
     }
   }
 
   render() {
+    const { searchError, apiKeyError, networkError } = this.props.errors;
+
     return (
       <div>
         <SearchBar />
-        {this.props.errors.searchError ? <SearchError /> : null}
-        {this.props.errors.apiKeyError ? <ApiKeyError /> : null}
-        {this.props.errors.networkError ? <NetworkError /> : null}
-        {!this.props.errors.apiKeyError &&
-        !this.props.errors.searchError &&
-        !this.props.errors.networkError ? (
+        {searchError ? <SearchError /> : null}
+        {apiKeyError ? <ApiKeyError /> : null}
+        {networkError ? <NetworkError /> : null}
+
+        {!apiKeyError && !searchError && !networkError ? (
           <div>
             <CurrentWeather />
             <ComingWeather />
@@ -48,7 +51,6 @@ class Dashboard extends Component {
 
 const mapStateToProps = state => ({
   hasFetchedPosition: state.user.hasFetchedPosition,
-  position: state.user.position,
   errors: state.errors
 });
 

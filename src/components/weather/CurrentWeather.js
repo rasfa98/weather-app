@@ -10,36 +10,43 @@ import { weatherIcon } from '../../helpers/weather';
 
 class CurrentWeather extends Component {
   componentDidMount() {
-    if (!this.props.currentWeather) {
+    const { currentWeather } = this.props;
+    const { position } = this.props;
+    const { apiKey, temperatureUnit } = this.props.settings;
+
+    if (!currentWeather) {
       this.props.getCurrentWeather(
         {
           type: 'coordinates',
-          data: this.props.position
+          data: position
         },
-        this.props.settings.apiKey,
-        this.props.settings.temperatureUnit
+        apiKey,
+        temperatureUnit
       );
     } else {
       this.props.getCurrentWeather(
         {
           type: 'city',
-          data: this.props.currentWeather.name
+          data: currentWeather.name
         },
-        this.props.settings.apiKey,
-        this.props.settings.temperatureUnit
+        apiKey,
+        temperatureUnit
       );
     }
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.position !== prevProps.position) {
+    const { position } = this.props;
+    const { apiKey, temperatureUnit } = this.props.settings;
+
+    if (position !== prevProps.position) {
       this.props.getCurrentWeather(
         {
           type: 'coordinates',
-          data: this.props.position
+          data: position
         },
-        this.props.settings.apiKey,
-        this.props.settings.temperatureUnit
+        apiKey,
+        temperatureUnit
       );
     }
   }

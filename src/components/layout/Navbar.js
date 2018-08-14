@@ -15,6 +15,7 @@ class Navbar extends Component {
               <span className="fas fa-home" />
             </Link>
           </li>
+
           <li className="nav-item">
             <Link to="/settings" className="nav-link">
               <span className="fas fa-cog" />

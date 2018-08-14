@@ -1,6 +1,6 @@
 import { GET_CURRENT_WEATHER, GET_COMING_WEATHER } from '../actions/types';
 
-const initialState = {};
+const initialState = { currentWeather: null, comingWeather: null };
 
 export default function(state = initialState, action) {
   switch (action.type) {

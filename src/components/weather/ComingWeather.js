@@ -9,36 +9,43 @@ import { getComingWeather } from '../../actions/weatherActions';
 
 class ComingWeather extends Component {
   componentDidMount() {
-    if (!this.props.comingWeather) {
+    const { comingWeather, currentWeather } = this.props;
+    const { position } = this.props;
+    const { apiKey, temperatureUnit } = this.props.settings;
+
+    if (!comingWeather) {
       this.props.getComingWeather(
         {
           type: 'coordinates',
-          data: this.props.position
+          data: position
         },
-        this.props.settings.apiKey,
-        this.props.settings.temperatureUnit
+        apiKey,
+        temperatureUnit
       );
     } else {
       this.props.getComingWeather(
         {
           type: 'city',
-          data: this.props.currentWeather.name
+          data: currentWeather.name
         },
-        this.props.settings.apiKey,
-        this.props.settings.temperatureUnit
+        apiKey,
+        temperatureUnit
       );
     }
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.position !== prevProps.position) {
+    const { position } = this.props;
+    const { apiKey, temperatureUnit } = this.props.settings;
+
+    if (position !== prevProps.position) {
       this.props.getComingWeather(
         {
           type: 'coordinates',
-          data: this.props.position
+          data: position
         },
-        this.props.settings.apiKey,
-        this.props.settings.temperatureUnit
+        apiKey,
+        temperatureUnit
       );
     }
   }

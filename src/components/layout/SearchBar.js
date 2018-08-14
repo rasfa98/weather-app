@@ -18,20 +18,24 @@ class SearchBar extends Component {
   state = {
     city: '',
     results: [],
-    errors: {}
+    error: ''
   };
 
   getWeatherData = city => {
+    const { apiKey, temperatureUnit } = this.props.settings;
+
     this.props.changeSearchError(false);
     this.props.changeNetworkError(false);
+
+    this.setState({ error: '' });
 
     this.props.getCurrentWeather(
       {
         type: 'city',
         data: city
       },
-      this.props.settings.apiKey,
-      this.props.settings.temperatureUnit
+      apiKey,
+      temperatureUnit
     );
 
     this.props.getComingWeather(
@@ -39,20 +43,24 @@ class SearchBar extends Component {
         type: 'city',
         data: city
       },
-      this.props.settings.apiKey,
-      this.props.settings.temperatureUnit
+      apiKey,
+      temperatureUnit
     );
   };
 
   onSubmit = e => {
+    const { city } = this.state;
+
     e.preventDefault();
 
     // Check input
-    if (this.state.city.trim() === '') {
-      this.setState({ errors: { city: 'Please enter a city' } });
+    if (city.trim() === '') {
+      this.setState({ error: 'Please enter a city' });
     } else {
-      this.getWeatherData(this.state.city);
+      this.getWeatherData(city);
     }
+
+    this.setState({ city: city.trim(), results: [] });
   };
 
   onClick = e => {
@@ -64,9 +72,7 @@ class SearchBar extends Component {
     const searchBar = e.target;
 
     jsonp(
-      `http://gd.geobytes.com/AutoCompleteCity?template=<geobytes%20city>,%20<geobytes%20country>&q=${
-        e.target.value
-      }`,
+      `http://gd.geobytes.com/AutoCompleteCity?q=${e.target.value}`,
       null,
       (err, data) => {
         if (err) {
@@ -85,6 +91,8 @@ class SearchBar extends Component {
   };
 
   render() {
+    const { city, results, error } = this.state;
+
     return (
       <div className="mb-3">
         <form onSubmit={this.onSubmit}>
@@ -92,11 +100,11 @@ class SearchBar extends Component {
             <input
               type="text"
               className={classnames('form-control', {
-                'is-invalid': this.state.errors.city
+                'is-invalid': error
               })}
               placeholder="Search for a city..."
               onChange={this.onChange}
-              value={this.state.city}
+              value={city}
             />
 
             <div className="input-group-append">
@@ -107,14 +115,12 @@ class SearchBar extends Component {
               </button>
             </div>
 
-            {this.state.errors.city && (
-              <div className="invalid-feedback">{this.state.errors.city}</div>
-            )}
+            {error && <div className="invalid-feedback">{error}</div>}
           </div>
         </form>
 
         <ul className="list-group mt-2">
-          {this.state.results.map(x => (
+          {results.map(x => (
             <li key={uuid()} className="list-group-item">
               <a
                 data-city={x}
