@@ -79,7 +79,7 @@ class CurrentWeather extends Component {
             </h1>
 
             <h5 className="text-white text-center m-3">
-              {moment.unix(currentWeather.dt).format('dddd HH:mm')}
+              {moment.unix(currentWeather.dt).format('dddd HH:mm A')}
             </h5>
 
             <p className="text-white text-center">
