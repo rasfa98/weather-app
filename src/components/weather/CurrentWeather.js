@@ -87,7 +87,9 @@ class CurrentWeather extends Component {
               <span className="p-3">
                 Pressure {currentWeather.main.pressure} hPa
               </span>
-              <br />
+            </p>
+
+            <p className="text-white text-center">
               <span className="p-3">
                 Humidity {currentWeather.main.humidity} %
               </span>
