@@ -1,9 +1,15 @@
-import { SEARCH_ERROR, API_KEY_ERROR, NETWORK_ERROR } from '../actions/types';
+import {
+  SEARCH_ERROR,
+  API_KEY_ERROR,
+  NETWORK_ERROR,
+  SERVER_ERROR
+} from '../actions/types';
 
 const initialState = {
   searchError: false,
   apiKeyError: false,
-  networkError: false
+  networkError: false,
+  serverError: false
 };
 
 export default function(state = initialState, action) {
@@ -22,6 +28,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         networkError: action.payload
+      };
+    case SERVER_ERROR:
+      return {
+        ...state,
+        serverError: action.payload
       };
     default:
       return state;

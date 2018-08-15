@@ -6,7 +6,8 @@ import {
   GET_COMING_WEATHER,
   SEARCH_ERROR,
   API_KEY_ERROR,
-  NETWORK_ERROR
+  NETWORK_ERROR,
+  SERVER_ERROR
 } from './types';
 
 export const getCurrentWeather = (
@@ -94,6 +95,8 @@ const handleError = err => {
       return API_KEY_ERROR;
     } else if (err.response.status === 404) {
       return SEARCH_ERROR;
+    } else if (err.response.status > 500) {
+      return SERVER_ERROR;
     }
   } else {
     return NETWORK_ERROR;

@@ -11,7 +11,8 @@ import {
 
 import {
   changeSearchError,
-  changeNetworkError
+  changeNetworkError,
+  changeServerError
 } from '../../actions/errorActions';
 
 class SearchBar extends Component {
@@ -27,7 +28,7 @@ class SearchBar extends Component {
     const params = [
       {
         type: 'city',
-        data: city
+        data: city.split(',')[0]
       },
       apiKey,
       temperatureUnit
@@ -35,6 +36,7 @@ class SearchBar extends Component {
 
     this.props.changeSearchError(false);
     this.props.changeNetworkError(false);
+    this.props.changeServerError(false);
 
     this.setState({ error: '' });
 
@@ -142,5 +144,11 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getCurrentWeather, getComingWeather, changeSearchError, changeNetworkError }
+  {
+    getCurrentWeather,
+    getComingWeather,
+    changeSearchError,
+    changeNetworkError,
+    changeServerError
+  }
 )(SearchBar);
