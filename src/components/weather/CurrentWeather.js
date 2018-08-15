@@ -59,7 +59,7 @@ class CurrentWeather extends Component {
         <div className="card mb-4 opacity">
           <div className="card-body">
             <h1 className="text-center text-white text-capitalize">
-              {currentWeather.name}
+              {currentWeather.name}, {currentWeather.sys.country}
             </h1>
 
             <h2 className="text-white text-center" style={{ fontSize: '60px' }}>
