@@ -28,7 +28,7 @@ class SearchBar extends Component {
     const params = [
       {
         type: 'city',
-        data: city.split(',')[0]
+        data: city
       },
       apiKey,
       temperatureUnit
@@ -40,8 +40,24 @@ class SearchBar extends Component {
 
     this.setState({ error: '' });
 
-    this.props.getCurrentWeather(...params);
-    this.props.getComingWeather(...params);
+    jsonp(
+      `http://gd.geobytes.com/GetCityDetails?q=${city}`,
+      null,
+      (err, data) => {
+        if (err) {
+          console.log(err.message);
+        } else {
+          if (data.geobytesinternet !== '') {
+            params[0].data = city.split(',')[0] + ',' + data.geobytesinternet;
+          } else if (data.geobytesinternet === '') {
+            params[0].data = city.split(',')[0];
+          }
+
+          this.props.getCurrentWeather(...params);
+          this.props.getComingWeather(...params);
+        }
+      }
+    );
   };
 
   onSubmit = e => {
