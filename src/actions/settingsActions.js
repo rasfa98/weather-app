@@ -1,7 +1,8 @@
 import { CHANGE_API_KEY, CHANGE_TEMPERATURE_UNIT } from './types';
 
 export const changeApiKey = apiKey => dispatch => {
-  const settings = JSON.parse(localStorage.getItem('settings')) || {};
+  // Save settings to local storage.
+  const settings = JSON.parse(localStorage.getItem('settings'));
 
   settings.apiKey = apiKey;
 
@@ -14,7 +15,8 @@ export const changeApiKey = apiKey => dispatch => {
 };
 
 export const changeTemperatureUnit = temperatureUnit => dispatch => {
-  const settings = JSON.parse(localStorage.getItem('settings')) || {};
+  // Save settings to local storage.
+  const settings = JSON.parse(localStorage.getItem('settings'));
 
   settings.temperatureUnit = temperatureUnit;
 

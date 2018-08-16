@@ -34,12 +34,14 @@ class SearchBar extends Component {
       temperatureUnit
     ];
 
+    // Reset errors.
     this.props.changeSearchError(false);
     this.props.changeNetworkError(false);
     this.props.changeServerError(false);
 
     this.setState({ error: '' });
 
+    // Get country code and add it to the query if one exists.
     jsonp(
       `http://gd.geobytes.com/GetCityDetails?q=${city}`,
       null,
@@ -65,7 +67,7 @@ class SearchBar extends Component {
 
     e.preventDefault();
 
-    // Check input
+    // Check if input is empty.
     if (searchInput.trim() === '') {
       this.setState({ error: 'Please enter a city' });
     } else {

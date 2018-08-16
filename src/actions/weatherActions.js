@@ -47,6 +47,7 @@ export const getComingWeather = (
     temperatureUnit
   );
 
+  // Filter out weather information at 12PM UTC for coming days.
   if (res.type === 'success') {
     dispatch({
       type: GET_COMING_WEATHER,
